@@ -1,0 +1,16 @@
+[package]
+name = "interface"
+version = "0.1.0"
+edition = "2021"
+authors = ["voidentente <voidentente@paranoici.org>"]
+repository = "https://github.com/voidentente/kumo"
+
+[dependencies.bevy]
+git = "https://github.com/bevyengine/bevy"
+default-features = false
+
+[dependencies.egui]
+version = "0.21.0"
+
+#[dependencies.bevy_egui]
+#version = "0.20.2"

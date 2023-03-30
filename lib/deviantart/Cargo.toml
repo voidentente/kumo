@@ -1,0 +1,16 @@
+[package]
+name = "deviantart"
+version = "0.1.0"
+edition = "2021"
+authors = ["voidentente <voidentente@paranoici.org>"]
+repository = "https://github.com/voidentente/kumo"
+
+[dependencies.bevy]
+git = "https://github.com/bevyengine/bevy"
+default-features = false
+
+[dependencies.oauth2]
+version = "4.3.0"
+
+[dependencies.webbrowser]
+version = "0.8.8"

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="63.022743mm"
+   height="14.212521mm"
+   viewBox="0 0 63.022743 14.212521"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.2 (b8e25be833, 2022-02-05)"
+   sodipodi:docname="kumo.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title id="title86812">Kumo</title>
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="5.9223906"
+     inkscape:cx="95.31624"
+     inkscape:cy="41.537281"
+     inkscape:window-width="2560"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2">
+    <pattern
+       inkscape:collect="always"
+       patternUnits="userSpaceOnUse"
+       width="2"
+       height="1"
+       patternTransform="translate(0,0) scale(10,10)"
+       id="Strips1_1"
+       inkscape:stockid="Stripes 1:1">
+      <rect
+         style="fill:black;stroke:none"
+         x="0"
+         y="-0.5"
+         width="1"
+         height="2"
+         id="rect65902" />
+    </pattern>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-35.525111,-128.34341)">
+    <style>
+      text {
+        font-style:normal;
+        font-weight:normal;
+        font-size:19.7556px;
+        line-height:1.25;
+        font-family:sans-serif;
+        fill:#000000;
+        fill-opacity:1;
+        stroke:url(#Strips1_1);
+        stroke-width:0.1;
+        stroke-miterlimit:4;
+        stroke-dasharray:2.4, 2.4;
+        stroke-dashoffset:0
+      }
+      tspan {
+        font-style:normal;
+        font-variant:normal;
+        font-weight:normal;
+        font-stretch:normal;
+        font-size:19.7556px;
+        font-family:'Book Antiqua';
+        -inkscape-font-specification:'Book Antiqua';
+        fill:white;
+        fill-opacity:1;
+        stroke:#ffffff;
+        stroke-width:0.1;
+        stroke-linecap:butt;
+        stroke-linejoin:round;
+        stroke-miterlimit:4;
+        stroke-dasharray:2.4, 2.4;
+        stroke-dashoffset:0;
+        stroke-opacity:1;
+        paint-order:normal
+      }
+      @media (prefers-color-scheme: dark) {
+        tspan {
+          fill: white;
+        }
+      }
+    </style>
+    <text
+       xml:space="preserve"
+       x="35.025272"
+       y="142.24548"
+       id="text2013">
+      <tspan
+         sodipodi:role="line"
+         id="tspan2011"
+         x="35.025272"
+         y="142.24548">KUMO
+      </tspan>
+    </text>
+  </g>
+  <metadata
+     id="metadata86810">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Kumo</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

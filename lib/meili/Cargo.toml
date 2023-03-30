@@ -1,0 +1,27 @@
+[package]
+name = "meili"
+version = "0.1.0"
+edition = "2021"
+authors = ["voidentente <voidentente@paranoici.org>"]
+repository = "https://github.com/voidentente/kumo"
+
+[dependencies.bevy]
+git = "https://github.com/bevyengine/bevy"
+default-features = false
+
+[dependencies.meilisearch-sdk]
+version = "0.22.1"
+
+[dependencies.serde]
+version = "1.0.158"
+features = ["derive"]
+
+[dependencies.futures]
+version = "0.3.27"
+
+[dependencies.webbrowser]
+version = "0.8.8"
+
+[dependencies.eprng]
+version = "0.1.1"
+default-features = false

@@ -1,0 +1,32 @@
+[package]
+name = "logging"
+version = "0.1.0"
+edition = "2021"
+authors = ["voidentente <voidentente@paranoici.org>"]
+repository = "https://github.com/voidentente/kumo"
+
+[dependencies.bevy]
+git = "https://github.com/bevyengine/bevy"
+default-features = false
+
+[dependencies.enable-ansi-support]
+version = "0.2.1"
+
+[dependencies.tracing-core]
+version = "0.1.30"
+
+[dependencies.tracing-log]
+version = "0.1.3"
+
+[dependencies.tracing-subscriber]
+version = "0.3.16"
+features = ["env-filter"]
+
+[dependencies.tracing-appender]
+version = "0.2.2"
+
+[dependencies.tracing-error]
+version = "0.2.0"
+
+[dependencies.tracing-tracy]
+version = "0.10.1"

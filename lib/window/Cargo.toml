@@ -1,0 +1,36 @@
+[package]
+name = "window"
+version = "0.1.0"
+edition = "2021"
+authors = ["voidentente <voidentente@paranoici.org>"]
+repository = "https://github.com/voidentente/kumo"
+
+[dependencies.bevy]
+git = "https://github.com/bevyengine/bevy"
+default-features = false
+features = [
+    "bevy_winit",
+    "wayland",
+    "x11",
+    "bevy_core_pipeline",
+    "bevy_render",
+]
+
+[dependencies.image]
+version = "0.24.5"
+default_features = false
+features = ["png"]
+
+[dependencies.winit]
+version = "0.28.0"
+default-features = false
+
+[target.'cfg(windows)'.build-dependencies]
+winres = "0.1.12"
+
+[package.metadata.winres]
+FileDescription = "Kumo"
+ProductVersion = "Kumo"
+OriginalFilename = "Kumo"
+LegalCopyright = "Kumo"
+ProductName = "Kumo"
