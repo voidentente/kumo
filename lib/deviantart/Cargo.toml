@@ -6,7 +6,7 @@ authors = ["voidentente <voidentente@paranoici.org>"]
 repository = "https://github.com/voidentente/kumo"
 
 [dependencies.bevy]
-git = "https://github.com/bevyengine/bevy"
+version = "0.10.1"
 default-features = false
 
 [dependencies.oauth2]

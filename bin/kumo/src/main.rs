@@ -37,7 +37,7 @@ fn main() {
     // Our listener is added to the app as resource, so we can use it in systems.
     app.insert_resource(InstanceListener(listener));
     // And we add the system that reads the listener:
-    app.add_systems(Update, instance_system);
+    app.add_system(instance_system);
 
     // Finally, we start our app.
     app.run();

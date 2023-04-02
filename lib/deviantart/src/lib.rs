@@ -32,7 +32,7 @@ impl Plugin for DeviantArtPlugin {
         ).set_redirect_uri(redirect_url);
 
         app.insert_resource(OAuth2Client(client));
-        app.add_systems(Update, start_system);
+        app.add_system(start_system);
     }
 }
 
