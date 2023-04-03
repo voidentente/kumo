@@ -7,35 +7,44 @@ pub struct FurAffinityPlugin;
 
 impl Plugin for FurAffinityPlugin {
     fn build(&self, _app: &mut App) {
+        pyo3::prepare_freethreaded_python();
+
         let exe_path = std::env::current_exe().unwrap();
         let exe_dir = exe_path.parent().unwrap();
 
         let mut venv_dir = exe_dir.join("python/");
 
-        // Python dies at the thought of \\?\, so we have to strip this here manually
-        if let std::path::Component::Prefix(prefix) = venv_dir.components().next().unwrap() {
+        // Python dies at the thought of \\?\, 
+        // so we have to strip this here manually
+        if let std::path::Component::Prefix(prefix) = 
+            venv_dir.components().next().unwrap() {
             if prefix.kind().is_verbatim() {
                 let literal = venv_dir.to_str().unwrap().to_owned();
                 venv_dir.push(&literal[4..]);
             }
         }
 
-        let io = std::fs::File::create(exe_dir.join("faapi.log")).unwrap();
-
         if !venv_dir.exists() {
-            create_venv(&venv_dir, &io);
+            create_venv(&venv_dir);
         }
 
-        let packages_dir = venv_dir.join("Lib").join("site-packages");
-        let faapi_dir = packages_dir.join("faapi");
+        #[cfg(windows)]
+        let packages_dir = venv_dir.join("Lib")
+            .join("site-packages");
 
-        if faapi_dir.exists() {
-            update_faapi(&venv_dir, &io);
-        } else {
-            install_faapi(&venv_dir, &io);
-        }
+        #[cfg(unix)]
+        let packages_dir = venv_dir.join("lib").read_dir()
+            .unwrap()
+            .flatten()
+            .find(|entry| entry.file_type().unwrap().is_dir())
+            .unwrap()
+            .path()
+            .join("site-packages");
 
-        pyo3::prepare_freethreaded_python();
+        let io = std::fs::File::create(
+                exe_dir.join("python.log")).unwrap();
+
+        update_faapi(&venv_dir, &io);
 
         Python::with_gil(|py| {
             let sys = py.import("sys").unwrap();
@@ -55,64 +64,32 @@ impl Plugin for FurAffinityPlugin {
     }
 }
 
-#[cfg(windows)]
-fn create_venv(venv_dir: &std::path::Path, io: &std::fs::File) {
-    info!("Creating venv...");
-    std::process::Command::new("py")
-        .args([
-            "-3",
-            "-m",
-            "venv",
-            venv_dir.to_str().unwrap()
-        ])
-        .stdout(std::process::Stdio::from(io.try_clone().unwrap()))
-        .stderr(std::process::Stdio::from(io.try_clone().unwrap()))
-        .spawn()
-        .expect("Failed to create venv: Could not spawn py")
-        .wait()
-        .unwrap()
-        .exit_ok()
-        .expect("Failed to create venv: Py returned an error");
+fn create_venv(venv_dir: &std::path::Path) {
+    Python::with_gil(|py| {
+        py.import("venv")
+            .unwrap()
+            .getattr("create")
+            .unwrap()
+            .call1((venv_dir.to_str().unwrap(),false,false,false,true))
+            .unwrap();
+    });
 }
 
-#[cfg(unix)]
-fn create_venv() {
-    todo!()
-}
-
-#[cfg(windows)]
-fn install_faapi(venv_dir: &std::path::Path, io: &std::fs::File) {
-    info!("Installing FAAPI...");
-    std::process::Command::new(venv_dir.join("Scripts/pip3.exe"))
-        .args([
-            "--no-input",
-            "install",
-            "faapi"
-        ])
-        .stdout(std::process::Stdio::from(io.try_clone().unwrap()))
-        .stderr(std::process::Stdio::from(io.try_clone().unwrap()))
-        .spawn()
-        .expect("Failed to install FAAPI: Could not spawn pip3")
-        .wait()
-        .unwrap()
-        .exit_ok()
-        .expect("Failed to install FAAPI: pip3 returned an error");
-}
-
-#[cfg(unix)]
-fn install_faapi() {
-    todo!()
-}
-
-#[cfg(windows)]
 fn update_faapi(venv_dir: &std::path::Path, io: &std::fs::File) {
     info!("Updating FAAPI...");
-    std::process::Command::new(venv_dir.join("Scripts/pip3.exe"))
+
+    #[cfg(unix)]
+    let pip_path = venv_dir.join("bin").join("pip3");
+
+    #[cfg(windows)]
+    let pip_path = venv_dir.join("Scripts").join("pip3.exe");
+
+    std::process::Command::new(pip_path)
         .args([
             "--no-input",
             "install",
-            "faapi",
-            "-U"
+            "-U",
+            "faapi"
         ])
         .stdout(std::process::Stdio::from(io.try_clone().unwrap()))
         .stderr(std::process::Stdio::from(io.try_clone().unwrap()))
@@ -122,9 +99,4 @@ fn update_faapi(venv_dir: &std::path::Path, io: &std::fs::File) {
         .unwrap()
         .exit_ok()
         .expect("Failed to update FAAPI: pip3 returned an error");
-}
-
-#[cfg(unix)]
-fn update_faapi() {
-    todo!()
 }

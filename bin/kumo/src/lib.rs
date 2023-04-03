@@ -3,8 +3,6 @@ use bevy::prelude::*;
 pub fn build() -> App {
     let mut app = App::new();
 
-    app.add_plugin(meili::MeiliPlugin);
-
     app.add_plugin(TaskPoolPlugin::default());
     app.add_plugin(TypeRegistrationPlugin::default());
     app.add_plugin(FrameCountPlugin::default());
@@ -23,6 +21,8 @@ pub fn build() -> App {
     });
 
     app.add_plugin(window::WindowPlugin);
+
+    app.add_plugin(meiliguard::MeilisearchPlugin);
 
     app.add_plugin(interface::InterfacePlugin);
 

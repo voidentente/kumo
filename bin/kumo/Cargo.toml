@@ -28,14 +28,14 @@ features = [
 [dependencies.logging]
 path = "../../lib/logging"
 
-[dependencies.meili]
-path = "../../lib/meili"
-
 [dependencies.window]
 path = "../../lib/window"
 
 [dependencies.interface]
 path = "../../lib/interface"
+
+[dependencies.meiliguard]
+path = "../meiliguard"
 
 [dependencies.deviantart]
 path = "../../lib/deviantart"

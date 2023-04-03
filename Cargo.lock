@@ -1384,9 +1384,9 @@ dependencies = [
 
 [[package]]
 name = "eprng"
-version = "0.1.1"
+version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5f5a19023ca9e86048c4fbaab36552fbc5649a30d47efe9ded5ae39c65007f27"
+checksum = "0f61c1e11e77c83df28c2a5e20f51a27453983d9fbf8c90a089f657ac267b4be"
 
 [[package]]
 name = "erased-serde"
@@ -2129,7 +2129,7 @@ dependencies = [
  "furaffinity",
  "interface",
  "logging",
- "meili",
+ "meiliguard",
  "window",
  "winres",
 ]
@@ -2265,23 +2265,15 @@ dependencies = [
 ]
 
 [[package]]
-name = "meili"
+name = "meiliguard"
 version = "0.1.0"
 dependencies = [
  "bevy",
  "eprng",
- "futures",
- "meilisearch-sdk",
- "serde",
- "windows 0.48.0",
-]
-
-[[package]]
-name = "meiliguard"
-version = "0.1.0"
-dependencies = [
  "libc",
+ "meilisearch-sdk",
  "nix 0.26.2",
+ "windows 0.48.0",
 ]
 
 [[package]]
