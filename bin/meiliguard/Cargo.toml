@@ -1,0 +1,12 @@
+[package]
+name = "meiliguard"
+version = "0.1.0"
+edition = "2021"
+authors = ["voidentente <voidentente@paranoici.org>"]
+repository = "https://github.com/voidentente/kumo"
+
+[dependencies.libc]
+version = "0.2.140"
+
+[dependencies.nix]
+version = "0.26.2"

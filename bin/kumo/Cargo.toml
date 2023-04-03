@@ -39,3 +39,6 @@ path = "../../lib/interface"
 
 [dependencies.deviantart]
 path = "../../lib/deviantart"
+
+[dependencies.furaffinity]
+path = "../../lib/furaffinity"

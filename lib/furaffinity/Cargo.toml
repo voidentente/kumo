@@ -1,5 +1,5 @@
 [package]
-name = "interface"
+name = "furaffinity"
 version = "0.1.0"
 edition = "2021"
 authors = ["voidentente <voidentente@paranoici.org>"]
@@ -9,13 +9,5 @@ repository = "https://github.com/voidentente/kumo"
 version = "0.10.1"
 default-features = false
 
-[dependencies.egui]
-version = "0.21.0"
-
-[dependencies.bevy_egui]
-version = "0.20.2"
-
-# Internal
-
-[dependencies.window]
-path = "../window"
+[dependencies.pyo3]
+version = "0.18.2"

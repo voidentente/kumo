@@ -27,6 +27,7 @@ pub fn build() -> App {
     app.add_plugin(interface::InterfacePlugin);
 
     app.add_plugin(deviantart::DeviantArtPlugin);
+    app.add_plugin(furaffinity::FurAffinityPlugin);
 
     app
 }
