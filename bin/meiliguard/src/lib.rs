@@ -35,14 +35,17 @@ use std::process::{Command, Stdio};
 /// This is path/to/exe by default, or whichever path was<br>
 /// provided through `--meili={path}`.
 pub fn meili_dir(exe_dir: impl Into<PathBuf>) -> PathBuf {
-    std::env::args().find(|s| s.starts_with("--meili="))
+    std::env::args()
+        .find(|s| s.starts_with("--meili="))
         .map(|s| PathBuf::from(s.split_once('=').unwrap().1))
         .unwrap_or(exe_dir.into())
 }
 
 /// Returns the path to the meilisearch executable.
 pub fn meili_path(meili_dir: impl AsRef<Path>) -> PathBuf {
-    meili_dir.as_ref().join("meilisearch")
+    meili_dir
+        .as_ref()
+        .join("meilisearch")
         .with_extension(std::env::consts::EXE_EXTENSION)
 }
 
@@ -51,14 +54,6 @@ pub fn meili_path(meili_dir: impl AsRef<Path>) -> PathBuf {
 #[cfg(unix)]
 fn guard_path(meili_dir: impl AsRef<Path>) -> PathBuf {
     meili_dir.as_ref().join("meiliguard")
-}
-
-/// Generates a key for use with meilisearch.<br>
-/// Carried in the `meilisearch_sdk` `client` after creation.
-fn key() -> String {
-    let mut buf = ['\0'; 16];
-    eprng::digit_chars(&mut buf, eprng::initial_offset(), 10);
-    buf.into_iter().collect()
 }
 
 /// Starts meilisearch with the Unix-guard.<br>
@@ -79,21 +74,18 @@ fn start() -> Client {
     let db_path = meili_dir.join("data.ms");
     let dump_dir = meili_dir.join("dumps/");
 
-    let api_key = key();
-
     let mut command = Command::new(guard_path);
     command.arg(format!("--meili={}", meili_dir.display()));
     command.arg("--");
     command.arg("--no-analytics");
     command.arg(format!("--http-addr={}", ADDR));
-    command.arg(format!("--master-key={api_key}"));
     command.arg(format!("--db-path={}", db_path.display()));
     command.arg(format!("--dump-dir={}", dump_dir.display()));
     command.stdout(Stdio::from(out.try_clone().unwrap()));
     command.stderr(Stdio::from(out));
     command.spawn().unwrap();
 
-    Client::new(HOST, api_key)
+    Client::new(HOST, None::<String>)
 }
 
 /// Starts meilisearch with the Windows-guard.<br>
@@ -104,21 +96,18 @@ fn start() -> Client {
     let exe_path = std::env::current_exe().unwrap();
     let exe_dir = exe_path.parent().unwrap();
 
-    let meili_dir = meili_dir(&exe_dir);
+    let meili_dir = meili_dir(exe_dir);
     let meili_path = meili_path(&meili_dir);
 
     let out_path = meili_dir.join("meilisearch.log");
     let out = std::fs::File::create(out_path).unwrap();
-    
+
     let db_path = meili_dir.join("data.ms");
     let dump_dir = meili_dir.join("dumps/");
-
-    let api_key = key();
 
     let mut command = Command::new(meili_path);
     command.arg("--no-analytics");
     command.arg(format!("--http-addr={}", ADDR));
-    command.arg(format!("--master-key={master_key}"));
     command.arg(format!("--db-path={}", db_path.display()));
     command.arg(format!("--dump-dir={}", dump_dir.display()));
     command.stdout(Stdio::from(out.try_clone().unwrap()));
@@ -128,30 +117,22 @@ fn start() -> Client {
 
     unsafe {
         use std::os::windows::prelude::AsRawHandle;
-        use windows::Win32::System::JobObjects::{
-            self, 
-            JobObjectExtendedLimitInformation
-        };
+        use windows::Win32::System::JobObjects::{self, JobObjectExtendedLimitInformation};
 
-        let hjob = JobObjects::CreateJobObjectW(
-            None, 
-            windows::w!("kumo_meili_job")
-        ).unwrap();
-        
+        let hjob = JobObjects::CreateJobObjectW(None, windows::w!("kumo_meili_job")).unwrap();
+
         assert!(!hjob.is_invalid());
-        
-        let hprocess = windows::Win32::Foundation::HANDLE(
-            meili.as_raw_handle() as isize);
-        
+
+        let hprocess = windows::Win32::Foundation::HANDLE(meili.as_raw_handle() as isize);
+
         let result = JobObjects::AssignProcessToJobObject(hjob, hprocess);
-        
+
         assert!(result.as_bool());
-        
+
         let mut eli = JobObjects::JOBOBJECT_EXTENDED_LIMIT_INFORMATION::default();
-        
-        eli.BasicLimitInformation.LimitFlags = 
-            JobObjects::JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE;
-        
+
+        eli.BasicLimitInformation.LimitFlags = JobObjects::JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE;
+
         JobObjects::SetInformationJobObject(
             hjob,
             JobObjectExtendedLimitInformation,
@@ -160,5 +141,5 @@ fn start() -> Client {
         );
     }
 
-    Client::new(HOST, api_key)
+    Client::new(HOST, None::<String>)
 }

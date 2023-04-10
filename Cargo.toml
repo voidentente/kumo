@@ -10,3 +10,6 @@ members = [
     "bin/*",
     "lib/*",
 ]
+default-members = [
+    "bin/kumo"
+]

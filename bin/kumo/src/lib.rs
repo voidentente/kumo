@@ -17,7 +17,7 @@ pub fn build() -> App {
         asset_folder: std::env::args()
             .find(|s| s.starts_with("--assets="))
             .map(|s| s.split_once('=').unwrap().1.to_owned())
-            .unwrap_or(Default::default())
+            .unwrap_or(Default::default()),
     });
 
     app.add_plugin(window::WindowPlugin);
@@ -27,7 +27,6 @@ pub fn build() -> App {
     app.add_plugin(interface::InterfacePlugin);
 
     app.add_plugin(deviantart::DeviantArtPlugin);
-    app.add_plugin(furaffinity::FurAffinityPlugin);
 
     app
 }

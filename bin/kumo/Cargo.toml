@@ -39,6 +39,3 @@ path = "../meiliguard"
 
 [dependencies.deviantart]
 path = "../../lib/deviantart"
-
-[dependencies.furaffinity]
-path = "../../lib/furaffinity"
